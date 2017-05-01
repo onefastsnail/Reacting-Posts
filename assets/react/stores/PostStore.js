@@ -16,8 +16,8 @@ var _store = {
     sortBy: 'newest',
 
     start: 0,
-    end: 12,
-    perPage: 12,
+    end: 6,
+    perPage: 6,
 
     infiniteScroll: false
 };

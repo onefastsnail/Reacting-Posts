@@ -2,8 +2,8 @@ var React = require('react');
 var PostStore = require('../../stores/PostStore');
 var PostActions = require('../../actions/PostActions');
 
-var Post = require('./Post');
-var Button = require('../Button');
+var Filter = require('./Filter');
+var Results = require('./Results');
 
 class PostController extends React.Component {
 
@@ -104,63 +104,29 @@ class PostController extends React.Component {
   //Our method used by react, and is required for components
   render(){
 
-      var posts = [];
-
-      //lets create an array of post components to render
-      for (var i in this.state.filter.paginated) {
-        posts.push(React.createElement(Post, {key: this.state.filter.paginated[i].ID, data: this.state.filter.paginated[i]}));
-      };
-
-      //if we have no posts lets show a message
-      if(posts.length == 0) {
-        posts = <p className="text-center">No posts found</p>;
-      }
-
-      var showMore;
-
-      //if we have more posts lets show a show more
-      if(this.state.filter.filtered.length > this.state.filter.perPage && this.state.filter.end < this.state.filter.filtered.length){
-        showMore = <p className="text-center"><br/><Button url="#" text="Show More" handleClick={this.handleShowMore}/></p>;
-      }
-
       return (
 
         <section className="section">
           <div className="container">
             <div className="row">
-                <div className="col-xs-12">
+              <div className="col-xs-12">
 
-                    <h1>Posts that React</h1>
-                    <p>Showing {this.state.filter.paginated.length} of {this.state.filter.filtered.length}</p>
+                  <Filter
+                    filter={this.state.filter}
+                    handleClearFilter={this.handleClearFilter}
+                    handleQueryChange={this.handleQueryChange}
+                    handleSortChange={this.handleSortChange}
+                    handleScrollChange={this.handleScrollChange}
+                  />
 
-                    <form action="" className="form-inline">
-
-                        <div className="form-group">
-                          <label htmlFor="exampleInputName2">Search</label>
-                          <input name="query" type="text" className="form-control" id="search" onChange={this.handleQueryChange} value={this.state.filter.query} />
-                        </div>
-
-                        <div className="form-group">
-                          <label htmlFor="sort">Sort</label>
-                          <select className="form-control" id="sort" value={this.state.filter.sortBy} onChange={this.handleSortChange}>
-                              <option value='newest'>Newest</option>
-                              <option value='alphabetically'>Alphabetically</option>
-                          </select>
-                        </div>
-
-                        <div className="checkbox">
-                            <label>
-                              <input type="checkbox" onChange={this.handleScrollChange} /> infinite scroll
-                            </label>
-                        </div>
-
-                        <Button url="#" text="Clear" handleClick={this.handleClearFilter}/>
-                    </form>
-
-                </div>
+              </div>
             </div>
             <div className="row">
-                {posts} {showMore}
+              <div className="col-xs-12">
+
+                <Results filter={this.state.filter} handleShowMore={this.handleShowMore}/>
+
+              </div>
             </div>
             </div>
         </section>
