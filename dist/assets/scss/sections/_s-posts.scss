@@ -1,0 +1,11 @@
+.s-posts {
+
+    &__navigation {
+
+        &__container {
+            @include container-fixed();
+        }
+
+    }
+
+}

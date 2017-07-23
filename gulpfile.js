@@ -8,36 +8,49 @@ var autoprefixer = require('gulp-autoprefixer');
 var watch = require('gulp-watch');
 var changed = require('gulp-changed');
 var cache = require('gulp-cached');
-var jshint = require('gulp-jshint');
+var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
-var runSequence = require('run-sequence');
+var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
+var runSequence = require('run-sequence');
+
+//some utils
+var shell = require('gulp-shell');
+var del = require('del');
 var wait = require('gulp-wait');
+var debug = require('gulp-debug');
 
-//for react
-var buffer = require('vinyl-buffer'),
-    browserify = require('browserify'),
-    reactify = require('reactify'),
-    source = require('vinyl-source-stream');
+var webpack = require('webpack');
 
-var gulpTaskTimeout = 200;
+var gulpTaskTimeout = 1;
 
-//global build paths
 var paths = {
+    src: 'src/',
+    dist: 'dist/',
     sass: {
-        src: ['./assets/css/scss/**/*.scss'],
-        dist: './assets/dist/css/'
-    },
-    js: {
-        src: ['./assets/js/*.js', './assets/js/components/*.js'],
-        dist: './assets/dist/js/'
+        src: [
+            'src/assets/scss/**/*.scss'
+        ],
+        dist: 'dist/assets/css/'
     },
     react: {
-        app: './assets/react/App.js',
-        src: ['./assets/react/**/*.js'],
-        dist: './assets/dist/react/'
+        app: 'src/assets/react/App.js',
+        src: ['src/assets/react/**/*.js'],
+        dist: 'dist/assets/react/'
     }
 };
+
+process.env.NODE_ENV = 'production';
+
+gulp.task('clearBuild', function() {
+    return del([paths.dist + '**/*']);
+});
+
+gulp.task('copy', ['sass', 'react'], function() {
+    return gulp.src([paths.src + '**/*'], { read: true })
+        .pipe(changed(paths.dist))
+        .pipe(gulp.dest(paths.dist));
+});
 
 /**
  * compile, prefix and minify our sass
@@ -56,46 +69,70 @@ gulp.task('sass', [], function() {
         .pipe(gulp.dest(paths.sass.dist));
 });
 
+gulp.task('react', function (callback) {
+
+    var webpackConfig = {
+        entry: __dirname + '/' + paths.react.app,
+        output: { path: __dirname + '/' + paths.react.dist, filename: 'bundle.js' },
+        //plugins: [new webpack.optimize.UglifyJsPlugin()],
+         stats: {
+            colors: true,
+            modules: true,
+            reasons: true,
+            errorDetails: true
+        },
+        module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['babel-preset-react-app']
+                }
+            }
+        }]
+
+        },
+    };
+
+    webpack(webpackConfig, function (err, stats) {
+        if (err) {
+            throw new gutil.PluginError('webpack:build', err);
+        }
+        gutil.log('[webpack:build] Completed\n' + stats.toString({
+            assets: true,
+            chunks: false,
+            chunkModules: false,
+            colors: true,
+            hash: false,
+            timings: false,
+            version: false
+        }));
+        callback();
+    });
+
+});
+
+
 /**
- * compile, uglify and concat our js
- */
-gulp.task('js', [], function() {
-    return gulp.src(paths.js.src)
-        .pipe(wait(gulpTaskTimeout))
-        //.pipe(sourcemaps.init())
-        .pipe(plumber())
-        .pipe(jshint())
-        .pipe(jshint.reporter(stylish))
-        .pipe(concat('myquery.js'))
-        .pipe(uglify())
-        //.pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest(paths.js.dist));
-});
-
-/*
-    compile and browserify our React components
- */
-gulp.task('react', function() {
-    return browserify(paths.react.app)
-    .transform(reactify)
-    .bundle()
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    //.pipe(sourcemaps.init())
-    //.pipe(uglify())
-    //.pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.react.dist));
-});
-
-/*
-    Watch our project files for changes
+ * our watch tasks
  */
 gulp.task('watch', [], function() {
-    gulp.watch(paths.js.src, ['js']);
     gulp.watch(paths.sass.src, ['sass']);
     gulp.watch(paths.react.src, ['react']);
 });
 
+/**
+ * the default gulp task used for development
+ */
 gulp.task('default', function(callback) {
-  runSequence('react', 'sass', 'js', 'watch', callback);
+    runSequence('clearBuild', 'copy', 'watch', callback);
+});
+
+/**
+ * the build task triggered when deploying, or making the project
+ */
+gulp.task('build', function(callback) {
+    runSequence('clearBuild', 'copy', callback);
 });

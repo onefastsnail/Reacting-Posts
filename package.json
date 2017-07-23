@@ -1,25 +1,30 @@
 {
-  "name": "onefastsnail",
+  "name": "Onefastsnail",
   "version": "1.0.0",
-  "description": "a onefastsnail something",
+  "description": "A Onefastsnail experiment",
   "main": "gulpfile.js",
-  "scripts": {},
+  "scripts": {
+    "start": "npm-run-all --parallel server dev",
+    "server": "http-server ./dist/",
+    "dev": "gulp"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/username/repository.git"
+    "url": "git://github.com/onefastsnail/Reacting-Posts"
   },
-  "author": "Paul Stewart",
+  "author": "Mr Onefastsnail",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^2.0.0",
-    "flux": "3.1.2",
-    "http-server": "^0.9.0",
-    "object-assign": "^4.1.1",
-    "react": "~15.4",
-    "react-add-to-calendar": "0.0.9",
-    "react-dom": "~15.4"
+    "lodash": "^4.17.4",
+    "moment": "^2.11.0"
   },
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-react-app": "^2.2.0",
+    "del": "^2.2.0",
+    "flux": "3.1.2",
     "gulp": "~3.9",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cached": "^1.0.4",
@@ -33,16 +38,16 @@
     "gulp-shell": "^0.5.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.8",
     "gulp-wait": "0.0.2",
     "gulp-watch": "^4.2.3",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
+    "object-assign": "^4.1.1",
+    "react": "~15.4",
+    "react-dom": "~15.4",
     "run-sequence": "^1.1.2",
-    "lodash": "^4.16.6",
-    "reactify": "^1.1.1",
-    "vinyl-buffer": "~1.0.0",
-    "vinyl-source-stream": "~1.0.0",
-    "watchify": "^3.7.0",
-    "browserify": "~12.0.1"
+    "npm-run-all": "1.8.0",
+    "webpack": "^2.4.1"
   }
 }

@@ -1,0 +1,55 @@
+/**
+ * CONTENTS
+ *
+ * (Pro tip: prefix your search with '#' to jump directly to titles)
+ *
+ * Bootstrap........Include Bootstrap pieces separately
+ * Custom...........Our code
+ */
+
+/**
+ * As Bootstrap is required by our core, for grids etc we need this first
+ */
+
+@import "vendor/bootstrap";
+
+/**
+ * #CUSTOM
+ *
+ * All of our custom code.
+ */
+
+//include the base variables and mixins
+@import "base/variables";
+
+/**
+ * Mixins
+ *
+ */
+//@import "mixins/align-element";
+
+/**
+ * Base
+ *
+ * include the base helpers, typography etc
+ */
+@import "base/base";
+
+/**
+ * Layouts
+ * A bunch of layouts
+ */
+//@import "layouts/l-columns";
+
+/**
+ * sections
+ * Block contain of layouts and components, and those should styled individually with modifiers
+ */
+@import "sections/s-posts";
+
+/**
+ * Components
+ * Include the components core which can/would be amended to that project
+ */
+@import "components/c-list";
+@import "components/c-filter";

@@ -1,0 +1,192 @@
+.c-filter {
+    position: relative;
+    background: red;
+
+    &__buttons {
+
+        a {
+            display: block;
+        }
+
+        &>ul {
+            margin: 0;
+            padding: 0;
+
+            @media only screen and (min-width: 992px) {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: stretch;
+            }
+
+            &>li {
+                display: block;
+
+                &>ul {
+
+
+                    &>li {
+                        display: block;
+                    }
+                }
+
+                &:hover {
+                    &>ul {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    &__label {
+        position: relative;
+
+        &>a,
+        &>h6 {
+            font-size: 1.6rem;
+            line-height: 1.2em;
+            line-height: 1em;
+            display: block;
+            position: relative;
+            padding: 1em;
+
+            @media only screen and (min-width: 992px) {
+                padding:1.5em;
+                border-right: 1px solid $ui-border-color;
+            }
+
+            &:hover {}
+        }
+
+        &>a {
+            &:before {
+                content: " ";
+                font-size: 1.2rem;
+                font-family: FontAwesome;
+                display: inline-block;
+                line-height: 1.2em;
+                border-bottom-width: 3px;
+                height: 1.5em;
+                width: 1.4em;
+                text-align: center;
+                margin: -0.2em 1rem -0.2em 0;
+            }
+
+            &:hover:before {
+                content: "\f00c";
+                color: rgba(255, 0, 0, 0.5);
+            }
+        }
+
+        &--active {
+            &>a {
+                &:before {
+                    content: "\f00c";
+                }
+            }
+        }
+
+        &>h6 {
+            padding-right: 2.5em;
+
+            &:before {
+                content: "";
+                display: block;
+                width: 0.5em;
+                height: 0.5em;
+                position: absolute;
+                right: 1em;
+                transform: rotate(45deg);
+                top: 1.2em;
+
+                @media only screen and (min-width: 992px) {
+                    top:1.8em;
+                }
+            }
+        }
+
+        span {
+            display: inline-block;
+            border-radius: 50%;
+            color: #fff;
+            width: 1.4em;
+            height: 1.4em;
+            line-height: 1.4em;
+            margin: -0.3em 0 -0.3em 0.4em;
+            text-align: center;
+        }
+
+        &:hover {
+            &>h6 {
+                &:before {
+                    transform: rotate(-45deg);
+                    top: 1.2em;
+
+                    @media only screen and (min-width: 992px) {
+                        top:1.6em;
+                    }
+                }
+            }
+        }
+    }
+
+    &__dropdown {
+        position: absolute;
+        left: 1rem;
+        z-index: 50;
+        background: #fff;
+        width: calc(100% - 2rem);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        transform: translate(0, -50%) scale3d(1, 0, 1);
+        opacity: 0;
+        padding: 1rem 2rem;
+        top: 4rem;
+
+        @media only screen and (min-width: 992px) {
+            left:-1px;
+            top: 6rem;
+            width: 30rem;
+        }
+
+
+        &__item {
+            a {
+                color: #000;
+                padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+                position: relative;
+                cursor: pointer;
+
+                &:before {
+                    content: "";
+                    font-size: 1.2rem;
+                    font-family: FontAwesome;
+                    display: block;
+                    position: absolute;
+                    top: 1rem;
+                    line-height: 1.2em;
+                    left: 0;
+                    height: 1.4em;
+                    width: 1.4em;
+                    text-align: center;
+                }
+            }
+
+            &--active {
+                a {
+                    &:before {
+                        content: "\f00c";
+                    }
+                }
+            }
+        }
+
+        .c-filter__label:hover & {
+            transform: translate(0, 0) scale3d(1, 1, 1);
+            opacity: 1;
+        }
+    }
+}
