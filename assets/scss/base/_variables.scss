@@ -1,0 +1,11 @@
+// Colors
+$green:#0ac572;
+$almost-white: #F5F7F7;
+$almost-black:#22182c;
+$purple: #5c00e7;
+
+// Link colors to meaningful variables
+$brand-color: $purple;
+$body-bg: $almost-white;
+$link-color: $brand-color;
+$link-hover-color: darken($link-color, 15%);

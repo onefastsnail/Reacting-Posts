@@ -1,0 +1,11 @@
+{
+  "name": "onefastsnail",
+  "version": "1.0.0",
+  "authors": [
+    "webmaster <paul@onefastsnail.com>"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3"
+  },
+  "private": true
+}

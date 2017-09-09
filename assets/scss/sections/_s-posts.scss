@@ -1,0 +1,53 @@
+.s-posts {
+
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    &__navigation {
+
+        position: relative;
+        z-index: 100;
+
+        &__container {
+            @include container();
+            max-width: 992px;
+            margin: auto;
+        }
+
+        margin-bottom: 2rem;
+
+        .col-sm-4:nth-child(2) {
+            margin-top: 1em;
+            margin-bottom: 1em;
+
+            @include bp(sm){
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+
+    }
+
+    &__results {
+        &__container {
+            @include container();
+            max-width: 2000px;
+            padding: 0 !important;
+        }
+
+        &__pagination {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+    }
+
+    // bad but for now im doing it
+    &__search {
+        height: 100%;
+        width: 100%;
+        padding: 1rem;
+        border: none;
+    }
+
+}

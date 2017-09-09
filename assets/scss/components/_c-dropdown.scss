@@ -1,0 +1,82 @@
+.c-dropdown {
+    background: $brand-color;
+    position: relative;
+
+    //our toggle for hovering on mobile
+    &__toggle {
+        display: inline-block;
+        background: $brand-color;
+        padding: 1rem 3rem;
+        width: 100%;
+        color: #fff;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        text-transform: capitalize;
+
+        span {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 1rem;
+        }
+    }
+
+    //on component hover lets animate the list
+    &:hover {
+        .c-dropdown__list {
+            transform: translate(0, 0) scale3d(1, 1, 1);
+            opacity: 1;
+        }
+    }
+
+    &__list {
+        padding: 0;
+        margin: 0;
+        transition: all .2s cubic-bezier(.19, 1, .22, 1);
+        opacity: 0;
+        transform: translate(0, -50%) scale3d(1, 0, 1);
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+
+        &__item {
+            list-style: none;
+            a {
+                display: inline-block;
+                padding: 1rem 3rem;
+                color: #fff;
+                background: darken($brand-color, 8%);
+                width: 100%;
+                box-sizing: border-box;
+                text-decoration: none;
+                position: relative;
+
+                &:before {
+                    font-family: "FontAwesome";
+                    content: "\f096";
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 1rem;
+                    line-height: 1;
+                }
+            }
+
+
+            &:hover {
+                a {
+                    background: darken($brand-color, 10%);
+                }
+            }
+
+            &--active {
+                a {
+                    &:before {
+                        content: "\f046";
+                    }
+                }
+            }
+        }
+    }
+}

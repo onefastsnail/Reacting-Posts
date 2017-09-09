@@ -1,0 +1,73 @@
+.c-card {
+    width: 100%;
+    background: #fff;
+    position: relative;
+
+    &__image {
+
+        position: relative;
+        display: block;
+        //border: 4px solid #fff;
+        overflow: hidden;
+
+        &:before {
+            display: block;
+            content: "\f1ce";
+            font-family: FontAwesome;
+            color: #ccc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            animation: infinite-spinning 2s infinite;
+        }
+
+        &__holder {
+            background-position: center;
+            background-size: cover;
+            padding-top: 70%;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+
+            &.js-loaded {
+                opacity: 1;
+            }
+        }
+
+    }
+
+    &__content {
+        padding: 1em;
+    }
+
+    &__meta {
+        margin: 0;
+        font-size: 0.8em;
+    }
+
+    &__title {
+        margin: 0.5em 0 2em 0;
+    }
+
+    &__read-more {
+        &:after {
+            content: "";
+        }
+    }
+
+    &--shadow {
+        box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes infinite-spinning {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

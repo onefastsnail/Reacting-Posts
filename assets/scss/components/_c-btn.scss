@@ -1,0 +1,96 @@
+.c-btn {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: #fff;
+    background: $brand-color;
+    cursor: pointer;
+    padding: 1.3rem 3rem;
+    display: inline-block;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: none;
+    position: relative;
+    transition: all 0.3s;
+    margin: 1em; // for demo
+    overflow: hidden;
+    text-align: center;
+
+    &:before {
+        content: "";
+        position: absolute;
+        transition: all 0.3s;
+        font-family: "FontAwesome";
+        line-height: 1;
+    }
+
+    &:hover {
+        background: darken($brand-color, 8%);
+        color: #fff;
+    }
+
+    &--star {
+
+        padding-left: 5.5em;
+
+        &:before {
+            height: 100%;
+            left: 0;
+            top: 0;
+            width: 60px;
+            background: darken($brand-color, 15%);
+            font-size: 2em;
+            content: "\f006";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &:hover {
+            background: darken($brand-color, 10%);
+            &:before {
+                content: "\f005";
+            }
+        }
+    }
+
+    &--arrow {
+        &:before {
+            content: "\f178";
+            left: 130%;
+        }
+        &:hover {
+            &:before {
+                left: 85%;
+            }
+        }
+    }
+
+    &--flip-text {
+
+        &:before {
+            height: 100%;
+            width: 100%;
+            transition: all 0.3s;
+            content: "\f164";
+            left: 0;
+	        top: -100%;
+        }
+        span {
+            display: inline-block;
+            transition: all 0.3s;
+            backface-visibility: hidden;
+        }
+
+        &:hover {
+
+            &:before {
+                top: 35%;
+            }
+
+            span {
+                transform: translateY(300%);
+            }
+        }
+    }
+}
