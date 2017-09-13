@@ -3,35 +3,38 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux'; // only used to connect react container components to redux
 import { BrowserRouter } from 'react-router-dom';
-import configureStore from './store/index';
-import { fetchPosts } from './actions/posts';
-import App from './components/Posts/Home';
+import configureStore from './store';
+
+// lets grab our posts feature container
+import Posts from './containers/posts';
+
+// an example of another container / feature in this build
+// running multiple react apps on the page, not an SPA but we can create many cool wee features
+import Dummy from './containers/dummy';
 
 // lets import our sexy style sheets
 import '../scss/main.scss';
 
-/*
-     lets create a redux store that holds our complete app state in 1 store only, a single source of truth
-     create an instance of our store
-*/
+// create an instance of our store
 const store = configureStore();
-
-/*
-    on intial page load, lets dispatch an action. this is the only way to trigger a state change.
-    our store's reducing functions will be called to return a new copy of changed state
-*/
-store.dispatch(fetchPosts());
 
 /*
     lets render our react component to the dom
     provider (from react redux) attaches our app to our store, for top level components
-    provider attaches our redux store to react components within
 */
 render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <Posts />
         </BrowserRouter>
     </Provider>,
     document.getElementById('reacting-posts')
+);
+
+// a second render method to create our second feature
+render(
+    <Provider store={store}>
+        <Dummy />
+    </Provider>,
+    document.getElementById('reacting-dummy')
 );

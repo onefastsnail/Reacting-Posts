@@ -1,14 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as postActions from '../../actions/posts';
+
+import {
+    searchPosts,
+    showMorePosts,
+    clearFilter,
+    filterByType,
+    fetchPosts
+} from '../ducks/posts';
+
 import { Route, Link, Switch, withRouter, } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 //our components
-import Filter from './Filter';
-import Results from './Results';
-import Single from './Single';
+import Filter from '../components/posts/Filter';
+import Results from '../components/posts/Results';
+import Single from '../components/posts/Single';
 
 class Home extends React.Component {
 
@@ -21,6 +29,14 @@ class Home extends React.Component {
         this.handleQueryChange = this.handleQueryChange.bind(this);
         this.handleShowMoreOrClear = this.handleShowMoreOrClear.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
+    }
+
+    componentDidMount(){
+        /*
+            on intial page load, lets dispatch an action. this is the only way to trigger a state change.
+            our store's reducing functions will be called to return a new copy of changed state
+        */
+        this.props.dispatch(fetchPosts());
     }
 
     handleQueryChange(event) {
@@ -84,7 +100,7 @@ Home.propTypes = {
 */
 function mapStateToProps(state, ownProps) {
 
-    //create a var for us to send as props to our component
+    // so lets create a obj, and cherry pick what our feature needs from the entire store, lucky us :)
     const y = {
         filter: {
             query: state.posts.query,
@@ -97,7 +113,7 @@ function mapStateToProps(state, ownProps) {
         query: state.posts.query
     };
 
-    // whilst our store won't contain the filtered list, it tells us everything we need to know to construct the filtered list, so lets do this here
+    // whilst our store won't contain the filtered list, it tells us everything we need to know to construct the filtered list, so lets do this here for now
 
     // if we have a search string
     if (y.query != '') {
@@ -136,7 +152,12 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         dispatch,
-        actions: bindActionCreators(postActions, dispatch)
+        actions: bindActionCreators({
+            searchPosts,
+            showMorePosts,
+            clearFilter,
+            filterByType
+        }, dispatch)
     };
 }
 

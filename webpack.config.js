@@ -5,7 +5,7 @@ const BUILD_DIR = path.resolve(__dirname, 'assets/dist/react');
 const APP_DIR = path.resolve(__dirname, 'assets/react');
 
 const config = {
-    entry: APP_DIR + '/index.js',
+    entry: APP_DIR + '/App.js',
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js'
