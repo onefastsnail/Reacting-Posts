@@ -134,21 +134,19 @@ export const reducer = (state = initialState, action) => {
 
             // if we dont have users then must be first fetch, so lets populate that array
             if (y.users.length == 0) {
-                let postUsers = [];
 
                 // lets now populate our filter dropdown values
-                y.posts.map(function (item, i) {
+                y.users = y.posts.reduce((users, item) => {
 
                     // lets save our types
-                    postUsers.push(item.user);
+                    if(users.indexOf(item.user) == -1) {
+                        users.push(item.user);
+                    }
 
-                });
+                    return users;
 
-                // filter out our duplicates, cheap i know!!
-                y.users = postUsers.filter(function (item, pos) { return postUsers.indexOf(item) == pos; });
+                }, []).sort();
 
-                // then sort
-                y.users.sort();
             }
 
             return y;
