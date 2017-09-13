@@ -79,7 +79,7 @@ export function fetchPosts() {
         // This is not required by thunk middleware, but it is convenient for us.
 
         // lets now send async call to get some data
-        axios.get('assets/api/pens.json', {
+        axios.get('https://gist.githubusercontent.com/onefastsnail/3b69a4844622879dcedd68858644db7b/raw/82a9e8b8ab10509dc60056b683068654e13045a9/pens.json', {
             params: {}
         })
             .then(function (response) {

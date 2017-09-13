@@ -15,7 +15,7 @@ class Post extends React.Component {
     componentDidMount() {
 
         // find the element
-        let penEl = document.querySelector('div[data-pen="' + this.props.item.slug + '"] .c-card__image__holder');
+        const penEl = document.querySelector('div[data-pen="' + this.props.item.slug + '"] .c-card__image__holder');
 
         // lets create a cheeky quick lazy load
         if(penEl){
@@ -41,7 +41,7 @@ class Post extends React.Component {
 
         e.preventDefault();
 
-        let x = {
+        const x = {
             key: 'typesSelected',
             value: e.target.dataset.value
         };
@@ -53,7 +53,7 @@ class Post extends React.Component {
 
         e.preventDefault();
 
-        let x = {
+        const x = {
             key: 'usersSelected',
             value: e.target.dataset.value
         };

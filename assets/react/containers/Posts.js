@@ -101,7 +101,7 @@ Home.propTypes = {
 function mapStateToProps(state, ownProps) {
 
     // so lets create a obj, and cherry pick what our feature needs from the entire store, lucky us :)
-    const y = {
+    let y = {
         filter: {
             query: state.posts.query,
             users: state.posts.users,

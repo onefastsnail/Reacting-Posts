@@ -9,7 +9,7 @@ class Results extends React.Component {
 
     render() {
 
-        let self = this;
+        const self = this;
 
         let showMoreOrClear;
 
