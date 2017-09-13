@@ -1,5 +1,5 @@
 import React from 'react';
-import Dropdown from '../form/Dropdown';
+import Dropdown from '../Form/Dropdown';
 
 class Filter extends React.Component {
 

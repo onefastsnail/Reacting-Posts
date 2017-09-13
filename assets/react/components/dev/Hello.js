@@ -12,8 +12,7 @@ class Hello extends React.Component {
     }
 
     //a method to handle our clicks
-    handleClick(item) {
-    }
+    handleClick(item) {}
 
     //Our method used by react, and is required for components
     render() {

@@ -106,8 +106,8 @@ export const initialState = {
     query: '',
     sortBy: 'newest',
 
-    end: 8,
-    perPage: 8
+    end: 16,
+    perPage: 16
 };
 
 /*

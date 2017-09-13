@@ -14,9 +14,9 @@ import { Route, Link, Switch, withRouter, } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 //our components
-import Filter from '../components/posts/Filter';
-import Results from '../components/posts/Results';
-import Single from '../components/posts/Single';
+import Filter from '../components/Posts/Filter';
+import Results from '../components/Posts/Results';
+import Single from '../components/Posts/Single';
 
 class Home extends React.Component {
 

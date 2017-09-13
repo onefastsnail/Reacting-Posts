@@ -6,11 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store';
 
 // lets grab our posts feature container
-import Posts from './containers/posts';
+import Posts from './containers/Posts';
 
 // an example of another container / feature in this build
 // running multiple react apps on the page, not an SPA but we can create many cool wee features
-import Dummy from './containers/dummy';
+import Dummy from './containers/Dummy';
 
 // lets import our sexy style sheets
 import '../scss/main.scss';
