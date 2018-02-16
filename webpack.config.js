@@ -1,26 +1,30 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const BUILD_DIR = path.resolve(__dirname, 'assets/dist/react');
-const APP_DIR = path.resolve(__dirname, 'assets/react');
+const distDir = path.resolve(__dirname, 'assets/dist/react');
+const srcDir = path.resolve(__dirname, 'assets/react');
+
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+    template: './index.html',
+    filename: 'index.html',
+    inject: 'body'
+  })
 
 const config = {
-    entry: APP_DIR + '/App.js',
+    entry: srcDir + '/App.js',
     output: {
-        path: BUILD_DIR,
+        path: distDir,
         filename: 'bundle.js'
     },
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //     sourceMap: false,
-        //     mangle: false
-        // })
+        HtmlWebpackPluginConfig
     ],
     module: {
         loaders: [
             {
                 test: /\.js?/,
-                include: APP_DIR,
+                include: srcDir,
                 loader: 'babel-loader'
             },
             {
