@@ -45,11 +45,11 @@ class Dropdown extends React.Component {
     }
 }
 
-// Dropdown.propTypes = {
-//   filter: PropTypes.object,
-//   options: PropTypes.array,
-//   handler: PropTypes.function,
-//   title: PropTypes.string
-// };
+Dropdown.propTypes = {
+  filter: PropTypes.string,
+  options: PropTypes.array,
+  handler: PropTypes.func,
+  title: PropTypes.string
+};
 
 export default Dropdown;

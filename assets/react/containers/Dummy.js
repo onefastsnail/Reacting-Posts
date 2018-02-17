@@ -2,13 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-class Home extends React.Component {
+class Dummy extends React.Component {
 
     constructor(props) {
         super(props);
     }
-
-    componentDidMount(){}
 
     render() {
 
@@ -26,7 +24,7 @@ class Home extends React.Component {
 }
 
 // we can catch a lot of bugs with typechecking so lets do it
-Home.propTypes = {
+Dummy.propTypes = {
     state: PropTypes.object
 };
 
@@ -36,12 +34,10 @@ Home.propTypes = {
 */
 function mapStateToProps(state, ownProps) {
 
-    // so lets create a obj, and cherry pick what our feature needs from the entire store, lucky us :)
-    const y = {
+    // so lets return a obj, and cherry pick what our feature needs from the entire store, lucky us :)
+    return {
         state: state.posts
     };
-
-    return y;
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Dummy);

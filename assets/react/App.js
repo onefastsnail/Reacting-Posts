@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store';
 
 // lets grab our posts feature container
-import Posts from './containers/Posts';
+import PostsList from './containers/PostsList';
 
 // an example of another container / feature in this build
 // running multiple react apps on the page, not an SPA but we can create many cool wee features
@@ -25,7 +25,7 @@ const store = configureStore();
 render(
     <Provider store={store}>
         <BrowserRouter>
-            <Posts />
+            <PostsList />
         </BrowserRouter>
     </Provider>,
     document.getElementById('reacting-posts')

@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class Post extends React.Component {
@@ -65,8 +65,8 @@ class Post extends React.Component {
         return (
             <div data-pen={this.props.item.slug} className="c-card c-card--shadow">
                 <Link to={"/single/" + this.props.item.slug} className="c-card__image" title={this.props.item.title}>
-                    <div className="c-card__image__holder"></div>
-                    <div className="c-card__overlay"></div>
+                    <div className="c-card__image__holder" />
+                    <div className="c-card__overlay" />
                 </Link>
                 <div className="c-card__content">
                     <p className="c-card__meta">{this.props.item.user}</p>
@@ -78,9 +78,9 @@ class Post extends React.Component {
     }
 }
 
-//we can catch a lot of bugs with typechecking so lets do it
-// Pen.propTypes = {
-//   post_title: PropTypes.string.isRequired
-// };
+Post.propTypes = {
+    item: PropTypes.object,
+    handler: PropTypes.func
+};
 
 export default Post;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from '../Form/Dropdown';
 
 class Filter extends React.Component {
@@ -42,5 +43,14 @@ class Filter extends React.Component {
     }
 
 }
+
+Filter.propTypes = {
+    usersSelected: PropTypes.string,
+    users: PropTypes.array,
+    handleQueryChange: PropTypes.func,
+    handleTypeChange: PropTypes.func,
+    filter: PropTypes.object,
+    total: PropTypes.number
+};
 
 export default Filter;

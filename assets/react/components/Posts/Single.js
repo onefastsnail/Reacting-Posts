@@ -12,7 +12,7 @@ class Single extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-sm-2">
-                        <Link to="/" className="c-btn"><i className="fa fa-arrow-left" aria-hidden="true"></i></Link>
+                        <Link to="/" className="c-btn"><i className="fa fa-arrow-left" aria-hidden="true" /></Link>
                     </div>
                     <div className="col-xs-12 col-sm-10">
 

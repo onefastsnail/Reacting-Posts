@@ -118,7 +118,7 @@ export const initialState = {
     spread operator
     reducers must be synchronous. they return the new state.
 */
-export const reducer = (state = initialState, action) => {
+export default function reducer(state = initialState, action){
 
     let y;
 
@@ -139,7 +139,7 @@ export const reducer = (state = initialState, action) => {
                 y.users = y.posts.reduce((users, item) => {
 
                     // lets save our types
-                    if(users.indexOf(item.user) == -1) {
+                    if (users.indexOf(item.user) == -1) {
                         users.push(item.user);
                     }
 
@@ -208,9 +208,33 @@ export const reducer = (state = initialState, action) => {
         default:
             return state;
     }
-};
+}
 
 /*
     Lets make some selectors to return state only, as in the future we could use memoize to make faster etc
 */
 export const howManyPosts = state => state.posts.length;
+
+export const filterByQuery = state => {
+    if (state.query != '') {
+        return state.posts.filter(item => {
+            if (item.title.toLowerCase().indexOf(state.query.toLowerCase()) > -1) {
+                return item;
+            }
+        });
+    }
+
+    return state.posts;
+};
+
+export const filterbyUser = state => {
+    if (state.usersSelected.length > 0) {
+        return state.posts.filter(item => {
+            if (state.usersSelected.indexOf(item.user) > -1) {
+                return item;
+            }
+        });
+    }
+
+    return state.posts;
+};
