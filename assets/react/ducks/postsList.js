@@ -12,11 +12,9 @@ export const FETCH_POST_FAILURE = 'FETCH_POST_FAILURE';
 export const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS';
 
 export const SHOW_MORE_POSTS = 'SHOW_MORE_POSTS';
-
 export const SEARCH_POSTS = 'SEARCH_POSTS';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
-
-export const FILTER_POSTS_BY_TYPE = 'FILTER_POSTS_BY_TYPE';
+export const FILTER_POSTS_BY_PROPERTY = 'FILTER_POSTS_BY_PROPERTY';
 
 /*
     Our action creators
@@ -33,18 +31,9 @@ export const clearFilter = () => ({
     type: CLEAR_FILTER
 });
 
-export const requestPosts = () => ({
-    type: FETCH_POSTS_REQUEST
-});
-
-export const filterByType = (data) => ({
-    type: FILTER_POSTS_BY_TYPE,
+export const filterByProperty = (data) => ({
+    type: FILTER_POSTS_BY_PROPERTY,
     payload: data,
-});
-
-export const receivePosts = (json) => ({
-    type: FETCH_POSTS_SUCCESS,
-    posts: json,
 });
 
 export const requestPost = () => ({
@@ -54,6 +43,15 @@ export const requestPost = () => ({
 export const receivePost = (json) => ({
     type: FETCH_POST_SUCCESS,
     post: json,
+});
+
+export const requestPosts = () => ({
+    type: FETCH_POSTS_REQUEST
+});
+
+export const receivePosts = (json) => ({
+    type: FETCH_POSTS_SUCCESS,
+    posts: json,
 });
 
 export function fetchPosts() {
@@ -87,6 +85,9 @@ export const initialState = {
     users: [],
     usersSelected: [],
 
+    types: [],
+    typesSelected: [],
+
     query: '',
     sortBy: 'newest',
 
@@ -99,49 +100,56 @@ export const initialState = {
 */
 export default function reducer(state = initialState, action) {
 
-    let y;
-
     switch (action.type) {
 
-        case FETCH_POSTS_SUCCESS:
-
-            // create a clone, but only shallow, nested objects require further work
-            y = Object.assign({}, state);
+        case FETCH_POSTS_SUCCESS: {
+            const y = Object.assign({}, state);
 
             // now lets assign some properties to our fresh new to be state object
             y.posts = action.posts;
 
-            // if we dont have users then must be first fetch, so lets populate that array
-            if (y.users.length == 0) {
+            // todo: evalaute this location
+            // lets now populate our filter dropdown values
+            y.users = y.posts.reduce((users, item) => {
 
-                // lets now populate our filter dropdown values
-                y.users = y.posts.reduce((users, item) => {
+                // lets save our types
+                if (users.indexOf(item.user) == -1) {
+                    users.push(item.user);
+                }
 
-                    // lets save our types
-                    if (users.indexOf(item.user) == -1) {
-                        users.push(item.user);
-                    }
+                return users;
 
-                    return users;
+            }, []).sort();
 
-                }, []).sort();
+            // lets now populate our filter dropdown values
+            y.types = y.posts.reduce((types, item) => {
 
-            }
+                // lets save our types
+                if (types.indexOf(item.type) == -1) {
+                    types.push(item.type);
+                }
+
+                return types;
+
+            }, []).sort();
 
             return y;
+        }
 
-        case SHOW_MORE_POSTS:
-            y = Object.assign({}, state);
+        case SHOW_MORE_POSTS: {
+
+            const y = Object.assign({}, state);
             y.end += y.perPage; //increment our per ending value
 
             return y; //and return
+        }
 
-        case FILTER_POSTS_BY_TYPE: {
-            y = Object.assign({}, state);
+        case FILTER_POSTS_BY_PROPERTY: {
 
-            // lets create a copy of the array as above does a shallow clone
-            // and arrays are passed by reference also
-            let x = y[action.payload.key].slice();
+            const y = Object.assign({}, state);
+
+            // lets create a copy to mutate
+            let x = [...y[action.payload.key]];
 
             // find our match
             let match = x.indexOf(action.payload.value);
@@ -160,15 +168,18 @@ export default function reducer(state = initialState, action) {
             return y; //and return
         }
 
-        case SEARCH_POSTS:
-            y = Object.assign({}, state);
+        case SEARCH_POSTS: {
+
+            const y = Object.assign({}, state);
 
             y.query = action.query;
 
             return y;
+        }
 
-        case CLEAR_FILTER:
-            y = Object.assign({}, state);
+        case CLEAR_FILTER: {
+
+            const y = Object.assign({}, state);
 
             y.query = '';
             y.typesSelected = [];
@@ -176,13 +187,17 @@ export default function reducer(state = initialState, action) {
             y.end = y.perPage;
 
             return y;
+        }
 
-        case FETCH_POST_SUCCESS:
-            y = Object.assign({}, state);
+        case FETCH_POST_SUCCESS: {
+
+            const y = Object.assign({}, state);
 
             y.post = action.post;
 
             return y;
+
+        }
 
         default:
             return state;
@@ -208,6 +223,14 @@ export const filterPosts = state => {
     if (state.usersSelected.length > 0) {
         posts = posts.filter(item => {
             if (state.usersSelected.indexOf(item.user) > -1) {
+                return item;
+            }
+        });
+    }
+
+    if (state.typesSelected.length > 0) {
+        posts = posts.filter(item => {
+            if (state.typesSelected.indexOf(item.type) > -1) {
                 return item;
             }
         });

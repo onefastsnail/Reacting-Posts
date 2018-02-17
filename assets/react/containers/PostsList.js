@@ -8,7 +8,7 @@ import {
     searchPosts,
     showMorePosts,
     clearFilter,
-    filterByType,
+    filterByProperty,
     fetchPosts,
     filterPosts
 } from '../ducks/postsList';
@@ -27,7 +27,7 @@ class PostsList extends React.Component {
         this.handleShowMore = this.handleShowMore.bind(this);
         this.handleQueryChange = this.handleQueryChange.bind(this);
         this.handleShowMoreOrClear = this.handleShowMoreOrClear.bind(this);
-        this.handleTypeChange = this.handleTypeChange.bind(this);
+        this.handleFilterByProperty = this.handleFilterByProperty.bind(this);
     }
 
     componentDidMount() {
@@ -51,10 +51,10 @@ class PostsList extends React.Component {
         this.props.actions.clearFilter();
     }
 
-    handleTypeChange(data) {
+    handleFilterByProperty(data) {
         this.props.history.push('/');
         this.props.dispatch(this.props.actions.searchPosts(''));
-        this.props.actions.filterByType(data);
+        this.props.actions.filterByProperty(data);
     }
 
     render() {
@@ -64,7 +64,7 @@ class PostsList extends React.Component {
 
                 <Filter
                     filter={this.props.filter}
-                    handleTypeChange={this.handleTypeChange}
+                    handleFilterByProperty={this.handleFilterByProperty}
                     handleClearFilter={this.handleShowMore}
                     handleQueryChange={this.handleQueryChange}
                     handleSortChange={this.handleShowMore}
@@ -79,7 +79,7 @@ class PostsList extends React.Component {
                             total={this.props.total}
                             end={this.props.end}
                             handleShowMore={this.handleShowMore}
-                            handleFilterByType={this.props.actions.filterByType}
+                            handleFilterByProperty={this.props.actions.filterByProperty}
                             {...props}
                         />
                     )} />
@@ -114,7 +114,9 @@ function mapStateToProps(state, ownProps) {
         filter: {
             query: state.postsList.query,
             users: state.postsList.users,
-            usersSelected: state.postsList.usersSelected
+            types: state.postsList.types,
+            usersSelected: state.postsList.usersSelected,
+            typesSelected: state.postsList.typesSelected,
         },
         total: 0,
         posts: state.postsList.posts,
@@ -140,7 +142,7 @@ function mapDispatchToProps(dispatch) {
             searchPosts,
             showMorePosts,
             clearFilter,
-            filterByType,
+            filterByProperty,
         }, dispatch)
     };
 }

@@ -30,7 +30,16 @@ class Filter extends React.Component {
                                 title="User"
                                 options={this.props.filter.users}
                                 selected={this.props.filter.usersSelected}
-                                handler={this.props.handleTypeChange}
+                                handler={this.props.handleFilterByProperty}
+                            />
+                        </div>
+                        <div className="col-sm-4">
+                            <Dropdown
+                                filter="typesSelected"
+                                title="Type"
+                                options={this.props.filter.types}
+                                selected={this.props.filter.typesSelected}
+                                handler={this.props.handleFilterByProperty}
                             />
                         </div>
                     </div>
@@ -48,7 +57,7 @@ Filter.propTypes = {
     usersSelected: PropTypes.string,
     users: PropTypes.array,
     handleQueryChange: PropTypes.func,
-    handleTypeChange: PropTypes.func,
+    handleFilterByProperty: PropTypes.func,
     filter: PropTypes.object,
     total: PropTypes.number
 };

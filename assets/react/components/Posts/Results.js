@@ -25,7 +25,7 @@ class Results extends React.Component {
                     <div className="l-card-listing">
 
                         {this.props.items.map(function (item, i) {
-                            return <div key={i} className="l-card-listing__item animated zoomIn"><Small handler={self.props.handleFilterByType} item={item} /></div>;
+                            return <div key={i} className="l-card-listing__item animated zoomIn"><Small handler={self.props.handleFilterByProperty} item={item} /></div>;
                         })}
 
                     </div>
@@ -42,7 +42,7 @@ class Results extends React.Component {
 
 Results.propTypes = {
     items: PropTypes.array,
-    handleFilterByType: PropTypes.func,
+    handleFilterByProperty: PropTypes.func,
     handleShowMore: PropTypes.func,
     total: PropTypes.number,
     end: PropTypes.number

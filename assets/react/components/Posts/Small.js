@@ -16,35 +16,32 @@ class Post extends React.Component {
 
         e.preventDefault();
 
-        const x = {
+        this.props.handler({
             key: 'typesSelected',
             value: e.target.dataset.value
-        };
-
-        this.props.handler(x);
+        });
     }
 
     handleUserChange(e) {
 
         e.preventDefault();
-
-        const x = {
+        this.props.handler({
             key: 'usersSelected',
             value: e.target.dataset.value
-        };
-
-        this.props.handler(x);
+        });
     }
 
     render() {
         return (
             <div data-pen={this.props.item.slug} className="c-card c-card--shadow">
                 <Link to={"/single/" + this.props.item.slug} className="c-card__image" title={this.props.item.title}>
-                    <div className="c-card__image__holder" style={{ backgroundImage: `url(${this.props.item.image})` }}/>
+                    <div className="c-card__image__holder" style={{ backgroundImage: `url(${this.props.item.image})` }} />
                     <div className="c-card__overlay" />
                 </Link>
                 <div className="c-card__content">
-                    <p className="c-card__meta">{this.props.item.user}</p>
+                    <p className="c-card__meta">
+                        <span onClick={this.handleUserChange} data-value={this.props.item.user}>{this.props.item.user}</span> / <span onClick={this.handleTypeChange} data-value={this.props.item.type}>{this.props.item.type}</span>
+                    </p>
                     <h3 className="c-card__title"><Link to={"/single/" + this.props.item.slug} title={this.props.item.title}>{this.props.item.title}</Link></h3>
                 </div>
             </div>

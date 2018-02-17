@@ -17,9 +17,9 @@ class Single extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
 
-                    <iframe width="100%" height="500" scrolling="no" title={this.props.match.params.slug} src={url} frameBorder="no" />
+                        <iframe width="100%" height="500" scrolling="no" title={this.props.match.params.slug} src={url} frameBorder="no" />
 
-                    <Link to="/" className="c-btn"><i className="fa fa-arrow-left" aria-hidden="true" /></Link>
+                        <Link to="/" className="c-btn"><i className="fa fa-arrow-left" aria-hidden="true" /></Link>
 
                     </div>
 
