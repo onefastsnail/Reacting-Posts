@@ -7,6 +7,16 @@
   "plugins": [
     "react"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    }
+  },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",

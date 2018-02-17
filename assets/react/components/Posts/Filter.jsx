@@ -21,10 +21,10 @@ class Filter extends React.Component {
                 <div className="s-posts__navigation__container">
 
                     <div className="row">
-                        <div className="col-sm-4">
+                        <div className="col-sm-6">
                             <input name="query" type="text" className="s-posts__search" id="search" onChange={this.props.handleQueryChange} value={this.props.filter.query} placeholder={"Search " + this.props.total + " posts"} />
                         </div>
-                        <div className="col-sm-4">
+                        <div className="col-sm-3">
                             <Dropdown
                                 filter="usersSelected"
                                 title="User"
@@ -33,7 +33,7 @@ class Filter extends React.Component {
                                 handler={this.props.handleFilterByProperty}
                             />
                         </div>
-                        <div className="col-sm-4">
+                        <div className="col-sm-3">
                             <Dropdown
                                 filter="typesSelected"
                                 title="Type"

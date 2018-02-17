@@ -23,12 +23,12 @@ const config = {
     module: {
         loaders: [
             {
-                test: /\.js?/,
+                test: /\.(js|jsx)$/,
                 include: srcDir,
                 loader: 'babel-loader'
             },
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'eslint-loader'
             },
@@ -37,6 +37,9 @@ const config = {
                 loader: 'style-loader!css-loader!sass-loader'
             }
         ]
+    },
+    resolve: {
+        extensions: ['.jsx', '.js']
     }
 };
 
