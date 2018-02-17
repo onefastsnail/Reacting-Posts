@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { Route, Link, Switch, withRouter, } from 'react-router-dom';
 
 import {
     searchPosts,
@@ -9,13 +10,9 @@ import {
     clearFilter,
     filterByType,
     fetchPosts,
-    filterByQuery,
-    filterbyUser
+    filterPosts
 } from '../ducks/postsList';
 
-import { Route, Link, Switch, withRouter, } from 'react-router-dom';
-
-//our components
 import Filter from '../components/Posts/Filter';
 import Results from '../components/Posts/Results';
 import Single from '../components/Posts/Single';
@@ -42,7 +39,6 @@ class PostsList extends React.Component {
     }
 
     handleQueryChange(event) {
-        //this.props.dispatch(postActions.searchPosts(event.target.value)); // or
         this.props.history.push('/');
         this.props.dispatch(this.props.actions.searchPosts(event.target.value));
     }
@@ -76,12 +72,19 @@ class PostsList extends React.Component {
                     total={this.props.total}
                 />
 
-                {/* <Switch>
-                    <Route path="/" exact render={(props) => (<Results items={this.props.posts} total={this.props.total} end={this.props.end} handleShowMore={this.handleShowMore} handleFilterByType={this.props.actions.filterByType} {...props} />)} />
+                <Switch>
+                    <Route path="/" exact render={(props) => (
+                        <Results
+                            items={this.props.posts}
+                            total={this.props.total}
+                            end={this.props.end}
+                            handleShowMore={this.handleShowMore}
+                            handleFilterByType={this.props.actions.filterByType}
+                            {...props}
+                        />
+                    )} />
                     <Route path="/single/:slug" component={Single} />
-                </Switch> */}
-
-                <Results items={this.props.posts} total={this.props.total} end={this.props.end} handleShowMore={this.handleShowMore} handleFilterByType={this.props.actions.filterByType} />
+                </Switch>
 
             </section>
 
@@ -106,7 +109,7 @@ PostsList.propTypes = {
 */
 function mapStateToProps(state, ownProps) {
 
-    // so lets create a obj, and cherry pick what our feature needs from the entire store, lucky us :)
+    // so lets create an obj to map to our container as props, and cherry pick what we need from the entire store, lucky us :)
     let y = {
         filter: {
             query: state.postsList.query,
@@ -120,14 +123,12 @@ function mapStateToProps(state, ownProps) {
     };
 
     // whilst our store won't contain the filtered list, it tells us everything we need to know to construct the filtered list, so lets do this here for now
-
-    // if we have a search string, maybe use currying here
-    y.posts = filterByQuery(state.postsList);
+    y.posts = filterPosts(state.postsList);
 
     y.total = y.posts.length;
 
-    // now lets paginate
-    y.posts = y.posts.slice(y.start, y.end);
+    // lastly paginate the array
+    y.posts = y.posts.slice(state.postsList.start, state.postsList.end);
 
     return y;
 }

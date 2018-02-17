@@ -3,6 +3,10 @@
     padding-top: 3rem;
     padding-bottom: 3rem;
 
+    &__container {
+        @include container();
+    }
+
     &__navigation {
 
         position: relative;
@@ -49,5 +53,4 @@
         padding: 1rem;
         border: none;
     }
-
 }

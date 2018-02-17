@@ -1,4 +1,4 @@
-//import 'babel-polyfill'; // some es6 features still not in babel
+//import 'babel-polyfill'; // some es6 features still not in babel, slow!
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux'; // only used to connect react container components to redux
@@ -20,7 +20,7 @@ const store = configureStore();
 
 /*
     lets render our react component to the dom
-    provider (from react redux) attaches our app to our store, for top level components
+    provider (from react redux) attaches our app to our store, for top level container components
 */
 render(
     <Provider store={store}>
@@ -31,7 +31,7 @@ render(
     document.getElementById('reacting-posts')
 );
 
-// a second render method to create our second feature
+// a second render method to render our second feature
 render(
     <Provider store={store}>
         <Dummy />

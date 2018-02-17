@@ -18,13 +18,10 @@ export const CLEAR_FILTER = 'CLEAR_FILTER';
 
 export const FILTER_POSTS_BY_TYPE = 'FILTER_POSTS_BY_TYPE';
 
-
 /*
-    Our action creators, it creates an action payload that can be dispatched
-    dispatching actions are the only way to get data into the store, as reducers create new state from those payloads
+    Our action creators
 */
 export function searchPosts(query) {
-    // in es6 properties being passed without assignment will be assigned to by thier var name in this content, kind of like compact in php
     return { type: SEARCH_POSTS, query };
 }
 
@@ -54,7 +51,6 @@ export const requestPost = () => ({
     type: FETCH_POST_REQUEST
 });
 
-
 export const receivePost = (json) => ({
     type: FETCH_POST_SUCCESS,
     post: json,
@@ -62,21 +58,10 @@ export const receivePost = (json) => ({
 
 export function fetchPosts() {
 
-    // as action creators should return functions, we use Thunks middleware to allow our dispatch method to be fed to our invoked functions
-    // Thunk middleware knows how to handle functions.
-    // It passes the dispatch method as an argument to the function,
-    // thus making it able to dispatch actions itself.
-
     return function (dispatch) {
 
         // dispatch an action creator to say we have began to fetch pens
         dispatch(requestPosts());
-
-        // The function called by the thunk middleware can return a value,
-        // that is passed on as the return value of the dispatch method.
-
-        // In this case, we return a promise to wait for.
-        // This is not required by thunk middleware, but it is convenient for us.
 
         // lets now send async call to get some data
         axios.get('https://gist.githubusercontent.com/onefastsnail/3b69a4844622879dcedd68858644db7b/raw/82a9e8b8ab10509dc60056b683068654e13045a9/pens.json', {
@@ -92,7 +77,6 @@ export function fetchPosts() {
 
     };
 }
-
 
 /*
     Our initial state of our store
@@ -112,13 +96,8 @@ export const initialState = {
 
 /*
     Our reducer
-    nice now in es6 func args defaults are used when an argument is either omitted or undefined, therefore we could set default state.
-    as reducers are actually called once when the store is created and then again after upon defined dispatches
-    we always return a new version of state, never modify it!
-    spread operator
-    reducers must be synchronous. they return the new state.
 */
-export default function reducer(state = initialState, action){
+export default function reducer(state = initialState, action) {
 
     let y;
 
@@ -213,28 +192,27 @@ export default function reducer(state = initialState, action){
 /*
     Lets make some selectors to return state only, as in the future we could use memoize to make faster etc
 */
-export const howManyPosts = state => state.posts.length;
+export const filterPosts = state => {
 
-export const filterByQuery = state => {
+    // create a new copy of posts to mutate
+    let posts = [...state.posts];
+
     if (state.query != '') {
-        return state.posts.filter(item => {
+        posts = posts.filter(item => {
             if (item.title.toLowerCase().indexOf(state.query.toLowerCase()) > -1) {
                 return item;
             }
         });
     }
 
-    return state.posts;
-};
-
-export const filterbyUser = state => {
     if (state.usersSelected.length > 0) {
-        return state.posts.filter(item => {
+        posts = posts.filter(item => {
             if (state.usersSelected.indexOf(item.user) > -1) {
                 return item;
             }
         });
     }
 
-    return state.posts;
+    return posts;
+
 };
