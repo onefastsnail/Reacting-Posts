@@ -16,6 +16,7 @@ import {
 import Filter from '../components/Posts/Filter';
 import Results from '../components/Posts/Results';
 import Single from '../components/Posts/Single';
+import Loading from '../components/Loading';
 
 class PostsList extends React.Component {
 
@@ -61,6 +62,8 @@ class PostsList extends React.Component {
 
         return (
             <section className="s-posts">
+
+                {this.props.loading && <Loading />}
 
                 <Filter
                     filter={this.props.filter}
@@ -128,6 +131,8 @@ function mapStateToProps(state, ownProps) {
     y.posts = filterPosts(state.postsList);
 
     y.total = y.posts.length;
+
+    y.loading = state.postsList.loading;
 
     // lastly paginate the array
     y.posts = y.posts.slice(state.postsList.start, state.postsList.end);

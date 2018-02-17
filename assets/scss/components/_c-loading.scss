@@ -1,0 +1,35 @@
+.c-loading {
+    margin: 0 auto;
+    text-align: center;
+    & > div {
+        width: 1.5em;
+        height: 1.5em;
+        background-color: $brand-color;
+        border-radius: 100%;
+        display: inline-block;
+        margin: 0 0.3em;
+        animation: bounceScale 1.4s infinite cubic-bezier(0.445, 0.050, 0.550, 0.950) both; // using negative times to get our specific divs to animate first in order
+        &:first-child {
+            animation-delay: -0.32s;
+        }
+        &:nth-child(2) {
+            animation-delay: -0.16s;
+            background-color: $brand-color;
+        }
+        &:last-child {
+            background-color: $brand-color;
+        }
+    }
+}
+
+// our animation, we declare our keyframes and the state of the transform scale value
+@keyframes bounceScale {
+    0%,
+    80%,
+    100% {
+        transform: scale(0) translateZ(0);
+    }
+    40% {
+        transform: scale(1) translateZ(0);
+    }
+}

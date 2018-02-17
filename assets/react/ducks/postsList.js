@@ -67,7 +67,9 @@ export function fetchPosts() {
         })
             .then(function (response) {
                 //once we have some data lets dispatch another redux event for our reducers to update state
-                dispatch(receivePosts(response.data));
+                setTimeout(() => {
+                    dispatch(receivePosts(response.data));
+                }, 1000);
             })
             .catch(function (error) {
                 //console.log(error);
@@ -92,7 +94,9 @@ export const initialState = {
     sortBy: 'newest',
 
     end: 16,
-    perPage: 16
+    perPage: 16,
+
+    loading: true
 };
 
 /*
@@ -101,6 +105,12 @@ export const initialState = {
 export default function reducer(state = initialState, action) {
 
     switch (action.type) {
+
+        case FETCH_POSTS_REQUEST: {
+            const y = Object.assign({}, state);
+            y.loading = true;
+            return y;
+        }
 
         case FETCH_POSTS_SUCCESS: {
             const y = Object.assign({}, state);
@@ -132,6 +142,8 @@ export default function reducer(state = initialState, action) {
                 return types;
 
             }, []).sort();
+
+            y.loading = false;
 
             return y;
         }

@@ -28,7 +28,7 @@ class Dropdown extends React.Component {
                 <ul className="c-dropdown__list">
                     {this.props.options.map((row, i) => {
 
-                        let activeClass = (this.props.selected.indexOf(row) > -1) ? ' c-dropdown__list__item--active' : '';
+                        const activeClass = (this.props.selected.indexOf(row) > -1) ? ' c-dropdown__list__item--active' : '';
 
                         return <li key={i} className={"c-dropdown__list__item" + activeClass}><a href="javascript:;" onClick={this.handleChange} data-value={row}>{row}</a></li>;
 
