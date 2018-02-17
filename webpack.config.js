@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const distDir = path.resolve(__dirname, 'assets/dist/react');
-const srcDir = path.resolve(__dirname, 'assets/react');
+const distDir = path.resolve(__dirname, 'dist');
+const srcDir = path.resolve(__dirname, 'src/js');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: './index.html',
